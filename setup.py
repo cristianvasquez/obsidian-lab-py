@@ -1,9 +1,17 @@
 import setuptools
+import pathlib
+
+
+# The text of the README file
+readme_txt = (pathlib.Path(__file__).parent / "README.md").read_text()
+
 setuptools.setup(
     name='obsidian_lab',
     version='0.2',    
     author='Cristian Vasquez',
     description='Obsidian lab app',
+    long_description = readme_txt,
+    long_description_content_type="text/markdown",
     url='https://github.com/cristianvasquez/obsidian-lab-py',    
     project_urls={
         "Bug Tracker":"https://github.com/cristianvasquez/obsidian-lab-py/issues",
