@@ -10,5 +10,3 @@ class Plugin:
         return {
             'contents': f'Hello from {self.plugin_name}'
         }
-
-hello = 'hola chuchetumare'
