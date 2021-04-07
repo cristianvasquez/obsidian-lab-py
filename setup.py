@@ -7,7 +7,7 @@ readme_txt = (pathlib.Path(__file__).parent / "README.md").read_text()
 
 setuptools.setup(
     name='obsidian_lab',
-    version='0.2',    
+    version='0.2.1',    
     author='Cristian Vasquez',
     description='Obsidian lab app',
     long_description = readme_txt,
@@ -16,14 +16,17 @@ setuptools.setup(
     project_urls={
         "Bug Tracker":"https://github.com/cristianvasquez/obsidian-lab-py/issues",
     },
+    packages=['.'],
     license='MIT',
     install_requires= [
                       'Flask',
                       'Flask-Cors',
                       'Flask-json-schema'
-                      ],                  
+                      ],
     classifiers=[
-        'Development Status :: Proof of concept',
+        'Development Status :: 1 - Planning',
+        'Environment :: Console',
+        'Environment :: Plugins',
         'Intended Audience :: Science/Research'
     ],
     entry_points={
