@@ -16,10 +16,8 @@ from flask_json_schema import JsonSchema, JsonValidationError
 ####################################################################################
 PORT = 5000
 HOST = '127.0.0.1'
-SCRIPTS_FOLDER = 'scripts'
 
 app = Flask(__name__)
-
 ####################################################################################
 # Cors
 ####################################################################################
@@ -58,39 +56,19 @@ def validation_error(e):
     }
     return jsonify(error)
 
-
-def get_scripts(directory):
-    def iter_namespace(ns_pkg):
-        # Specifying the second argument (prefix) to iter_modules makes the
-        # returned name an absolute name instead of a relative one. This allows
-        # import_module to work without having to do additional modification to
-        # the name.
-        return pkgutil.iter_modules(ns_pkg.__path__, ns_pkg.__name__ + ".")
-
-    detected = {
-        name: importlib.import_module(name)
-        for finder, name, ispkg
-        in iter_namespace(importlib.import_module(directory))
-        # if name.startswith(SCRIPTS_FOLDER)
-    }
-    return detected
-
-
 ####################################################################################
 # Routers
 ####################################################################################
 '''Return a list of all detected plugins'''
 
-
 @app.route('/', methods=['GET'])
 def root():
-    def host(script):
-        module_str = script.replace(".", "/")
-        return f'http://{HOST}:{PORT}/{module_str}'
 
     urls = []
-    for path in Path(scripts_path).rglob('*.py'):
-        urls.append(host(path.name[:-3]))
+
+    for path in Path(scripts_path).glob('*.py'):
+        module_name = str(path.name)[:-3]
+        urls.append(f'http://{HOST}:{PORT}/{module_name}')
 
     return {
         'scripts': urls
@@ -155,9 +133,6 @@ def get_code(plugin):
 
 # The specs of the plugins, to be instantiated
 
-scripts_path = None
-
-
 def load_spec(module_name, absolute_path):
     spec = importlib.util.spec_from_file_location(module_name, absolute_path)
     foo = importlib.util.module_from_spec(spec)
@@ -166,19 +141,46 @@ def load_spec(module_name, absolute_path):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    class bcolors:
+        HEADER = '\033[95m'
+        OKBLUE = '\033[94m'
+        OKCYAN = '\033[96m'
+        OKGREEN = '\033[92m'
+        WARNING = '\033[93m'
+        FAIL = '\033[91m'
+        ENDC = '\033[0m'
+        BOLD = '\033[1m'
+        UNDERLINE = '\033[4m'
+
+
+    description =  '''
+Starts a server for obsidian-lab. Requires a directory with scripts.
+
+Example scripts: https://github.com/cristianvasquez/obsidian-lab-py/tree/main/examples
+
+'''
+
+    parser = argparse.ArgumentParser(description=description)
     parser.add_argument("directory", type=str, help="directory containing the scripts")
     parser.add_argument("--host", type=str, help="host", default=HOST)
     parser.add_argument("-p", "--port", type=int, help="port", default=PORT)
     parser.add_argument("-v", "--verbosity", help="verbose mode")
 
     args = parser.parse_args()
-    scripts_path = Path(args.directory).absolute()
+    
+    global scripts_path
+    scripts_path = str(Path(args.directory).absolute())
+
     print(f'running on {scripts_path}')
 
-    files = Path(scripts_path).rglob('*.py')
+    files = Path(scripts_path).glob('*.py')
+    something_found = False
     for path in files:
-        print(f'Found: {path.name}')
+        print(f'{bcolors.OKGREEN}Found: {path.absolute()}{bcolors.ENDC}')
+        something_found = True
+
+    if not something_found:
+        print(f'''{bcolors.WARNING}Warning: No scripts found in {scripts_path}.{bcolors.ENDC}''')
 
     app.run(port=args.port, host=args.host)
     

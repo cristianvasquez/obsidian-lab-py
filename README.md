@@ -26,15 +26,15 @@ Usage:
 obsidian-lab <scripts directory>
 ```
 
-This will run a mini web server that exposes the scripts of the directory specified
+This will run a mini web server that exposes the scripts of the directory specified.
 
-Example:
+There are some examples in the ./examples directory, to run do:
 
 ```sh
 obsidian-lab ./examples
 ```
 
-After running, you can list all the available scripts:
+After starting, you can list all the available scripts:
 
 > GET: http://127.0.0.1:5000/
 

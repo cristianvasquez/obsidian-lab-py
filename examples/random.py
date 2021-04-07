@@ -1,7 +1,5 @@
 import os
-
 import random
-
 
 class Plugin:
     vault_path = ''
