@@ -9,7 +9,10 @@ Say you have a terrific script in python to:
 
 And you want to see if it's helpful in Obsidian.
 
-One way is to expose your script with this, and consume it using the [obsidian lab](https://github.com/cristianvasquez/obsidian-lab) plugin.
+Then you can:
+
+1. Expose your script with this app
+2. Try it out with the [obsidian lab](https://github.com/cristianvasquez/obsidian-lab) plugin.
 
 ## To install
 
