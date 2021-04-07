@@ -1,0 +1,8 @@
+*.iml
+.idea
+__pycache__
+build
+dist 
+
+playground
+obsidian_lab.egg-info
