@@ -4,6 +4,13 @@ class Plugin:
         super()
 
     def execute(self, note_path, text):
-        return {
-            "contents": text.upper()
+        
+
+        if text is not None:
+            return {
+                "contents": text.upper()
+            }
+        else:
+            return {
+
         }
