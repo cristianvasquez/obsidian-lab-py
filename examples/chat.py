@@ -9,5 +9,5 @@ class Plugin:
     def execute(self, args):
         print('request',self.plugin_name,args)
         return {
-            'contents': f'Hello from {self.plugin_name}'
+            'contents': f'Hello, {self.plugin_name} '
         }
