@@ -10,12 +10,11 @@ class Plugin:
     def execute(self, args):
         print('request',self.plugin_name,args)
 
-        text = args['text']
-        if text is not None:
+        if "text" in args:
             return {
-                "contents": text.upper()
+                "contents": args['text'].upper()
             }
         else:
             return {
-            
-        }
+                "contents": ''
+            }

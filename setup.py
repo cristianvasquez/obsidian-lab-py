@@ -7,7 +7,7 @@ readme_txt = (pathlib.Path(__file__).parent / "README.md").read_text()
 
 setuptools.setup(
     name='obsidian_lab',
-    version='0.2.4',    
+    version='0.2.5',    
     author='Cristian Vasquez',
     description='Obsidian lab app',
     long_description = readme_txt,
