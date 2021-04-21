@@ -89,19 +89,16 @@ http://{HOST}:{PORT}/{SCRIPTS_FOLDER}/hello_world
 
 '''
 
-
 @app.route('/<plugin>', methods=['POST'])
 @validator.validate(input_schema)
 def execute_script(plugin):
     vault_path = request.json['vaultPath'] if 'vaultPath' in request.json else None
-    note_path = request.json['notePath'] if 'notePath' in request.json else None
-    text = request.json['text'] if 'text' in request.json else None
 
     absolute_path = os.path.join(scripts_path, f'{plugin}.py')
 
     def exec_spec(spec):
         plugin = spec.Plugin(vault_path=vault_path)
-        return plugin.execute(note_path, text)
+        return plugin.execute(request.json)
 
     try:
         spec = load_spec(plugin, absolute_path)

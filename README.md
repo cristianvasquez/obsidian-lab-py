@@ -61,7 +61,7 @@ pip install -r requirements.txt
 try the app
 
 ```sh
-python ./app.py <scripts directory>
+python ./src/obsidian_lab/app.py ./examples
 ```
 
 ## Status

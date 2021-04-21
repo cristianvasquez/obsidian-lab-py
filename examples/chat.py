@@ -1,5 +1,6 @@
 import os
 
+
 class Plugin:
     def __init__(self, *args, **kwargs):        
         self.plugin_name = os.path.basename(__file__)

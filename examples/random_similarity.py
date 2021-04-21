@@ -5,11 +5,14 @@ class Plugin:
     vault_path = ''
     max_results = 20
 
-    def __init__(self, vault_path):
+    def __init__(self, vault_path):        
         self.vault_path = vault_path
+        self.plugin_name = os.path.basename(__file__)
         super()
+        
 
-    def execute(self, note_path, text):
+    def execute(self, args):
+        print('request',self.plugin_name,args)
 
         vault_path = self.vault_path
         items = []
